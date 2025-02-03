@@ -1,0 +1,99 @@
+CREATE TABLE public.assignments (
+    id bigint NOT NULL,
+    subject_id bigint,
+    description character varying(500) NOT NULL,
+    title character varying(100) NOT NULL
+);
+
+CREATE TABLE public.attendance (
+    present boolean NOT NULL,
+    id bigint NOT NULL,
+    student_id bigint,
+    subject_id bigint
+);
+
+CREATE TABLE public.categories (
+    id bigint NOT NULL,
+    deleted boolean NOT NULL,
+    name character varying(13) NOT NULL
+);
+
+
+CREATE TABLE public.courses (
+    end_date date,
+    max_students integer NOT NULL,
+    start_date date,
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    description character varying(500),
+    instructor_id bigint
+);
+
+
+
+CREATE TABLE public.exams (
+    id bigint NOT NULL,
+    subject_id bigint,
+    title character varying(255) NOT NULL
+);
+
+
+CREATE TABLE public.grades (
+    grade integer,
+    assignment_id bigint,
+    exam_id bigint,
+    id bigint NOT NULL,
+    student_id bigint,
+    subject_id bigint,
+    CONSTRAINT grades_grade_check CHECK (((grade <= 100) AND (grade >= 0)))
+);
+
+
+CREATE TABLE public.groups (
+    id bigint NOT NULL,
+    name character varying(50) NOT NULL
+);
+
+
+CREATE TABLE public.instructors (
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    email character varying(150) NOT NULL
+);
+
+CREATE TABLE public.role_model (
+    deleted boolean NOT NULL,
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL
+);
+
+
+CREATE TABLE public.students (
+    group_id bigint,
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    email character varying(150) NOT NULL
+);
+
+
+CREATE TABLE public.subjects (
+    course_id bigint,
+    id bigint NOT NULL,
+    instructor_id bigint,
+    name character varying(100) NOT NULL
+);
+
+
+
+CREATE TABLE public.users (
+    deleted boolean NOT NULL,
+    id bigint NOT NULL,
+    role_id bigint NOT NULL,
+    login character varying(25) NOT NULL,
+    name character varying(25) NOT NULL,
+    pathronymic character varying(25) NOT NULL,
+    surname character varying(25) NOT NULL,
+    password character varying(255)
+);
+
+
