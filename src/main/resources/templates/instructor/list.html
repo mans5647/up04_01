@@ -1,0 +1,43 @@
+<!-- instructors/list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructors List</title>
+    <!-- Add Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJx3JzX1+KpV+QzK5X5W+Xy1b3POa5oqbV8fghHfz9JcB2KvTz/Mvba2zdyX" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Instructors List</h1>
+        <div class="text-end mb-3">
+            <a href="/instructors/create" class="btn btn-primary">Add New Instructor</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example of dynamic content rendering -->
+                <tr th:each="instructor : ${instructors}">
+                    <td th:text="${instructor.id}"></td>
+                    <td th:text="${instructor.name}"></td>
+                    <td th:text="${instructor.email}"></td>
+                    <td>
+                        <a th:href="@{/instructors/edit/{id}(id=${instructor.id})}" class="btn btn-warning btn-sm">Edit</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Bootstrap JS (Optional, for interactive features like dropdowns, modals, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0h0zJzF31vPiQ+lbEKLkLdpGJz/DzdtTZflbR6QpZElGT5to" crossorigin="anonymous"></script>
+</body>
+</html>

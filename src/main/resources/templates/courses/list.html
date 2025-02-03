@@ -1,0 +1,56 @@
+<!-- courses/list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Course List</h1>
+        
+        <!-- Success message -->
+        <div th:if="${message}" class="alert alert-success">
+            <span th:text="${message}"></span>
+        </div>
+        
+        <a href="/courses/create" class="btn btn-primary mb-3">Create New Course</a>
+        
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Instructor</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Max Students</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.id}"></td>
+                    <td th:text="${course.name}"></td>
+                    <td th:text="${course.description}"></td>
+                    <td th:text="${course.instructor.name}"></td>
+                    <td th:text="${course.startDate}"></td>
+                    <td th:text="${course.endDate}"></td>
+                    <td th:text="${course.maxStudents}"></td>
+                    <td>
+                        <a href="/courses/edit/{id}" th:href="@{/courses/edit/{id}(id=${course.id})}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="/courses/delete/{id}" th:href="@{/courses/delete/{id}(id=${course.id})}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

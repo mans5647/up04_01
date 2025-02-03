@@ -1,0 +1,36 @@
+<!-- group/list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groups</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Groups</h1>
+        <a href="/groups/create" class="btn btn-primary mb-3">Create New Group</a>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="group : ${groups}">
+                    <td th:text="${group.id}"></td>
+                    <td th:text="${group.name}"></td>
+                    <td>
+                        <a th:href="@{/groups/edit/{id}(id=${group.id})}" class="btn btn-warning btn-sm">Edit</a>
+                        <a th:href="@{/groups/delete/{id}(id=${group.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/" class="btn btn-secondary">Back to Home</a>
+    </div>
+</body>
+</html>

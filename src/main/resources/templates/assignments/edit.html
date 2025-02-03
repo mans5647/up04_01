@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать задание</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Редактировать задание</h1>
+        <form th:action="@{/assignments/update/{id}(id=${assignment.id})}" th:object="${assignment}" method="post">
+            <div class="form-group">
+                <label for="title">Название задания:</label>
+                <input type="text" id="title" name="title" th:value="${assignment.title}" class="form-control" required>
+                <div th:if="${#fields.hasErrors('title')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('title')}" th:text="${err}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description">Описание задания:</label>
+                <textarea id="description" name="description" th:value="${assignment.description}" class="form-control" required></textarea>
+                <div th:if="${#fields.hasErrors('description')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('description')}" th:text="${err}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="subject">Предмет:</label>
+                <select id="subject" name="subject.id" class="form-control" required>
+                    <option th:each="subject : ${subjects}" th:value="${subject.id}" th:text="${subject.name}" th:selected="*{subject.id == subject.id}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('subject')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('subject')}" th:text="${err}"></p>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Обновить</button>
+        </form>
+        <a href="/assignments" class="btn btn-secondary btn-block mt-3">Назад к списку</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>

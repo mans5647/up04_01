@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изменить курс</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Edit Course</h1>
+
+        <form th:action="@{/courses/edit/{id}(id=${course.id})}" th:object="${course}" method="post">
+            <div class="form-group">
+                <label for="name">Название курса:</label>
+                <input type="text" id="name" name="name" th:field="*{name}" class="form-control" required>
+                <div th:if="${#fields.hasErrors('name')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('name')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Описание курса:</label>
+                <textarea id="description" name="description" th:field="*{description}" class="form-control"></textarea>
+                <div th:if="${#fields.hasErrors('description')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('description')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="instructor">Инструктор:</label>
+                <select id="instructor" name="instructor" th:field="*{instructor.id}" class="form-control" required>
+                    <option value="" disabled selected>Выберите инструктора</option>
+                    <option th:each="instructor : ${instructors}" 
+                            th:value="${instructor.id}" 
+                            th:text="${instructor.name}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('instructor')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('instructor')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="startDate">Дата начала:</label>
+                <input type="date" id="startDate" name="startDate" th:field="*{startDate}" class="form-control" required>
+                <div th:if="${#fields.hasErrors('startDate')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('startDate')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="endDate">Дата окончания:</label>
+                <input type="date" id="endDate" name="endDate" th:field="*{endDate}" class="form-control" required>
+                <div th:if="${#fields.hasErrors('endDate')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('endDate')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="maxStudents">Максимум студентов:</label>
+                <input type="number" id="maxStudents" name="maxStudents" th:field="*{maxStudents}" class="form-control" required>
+                <div th:if="${#fields.hasErrors('maxStudents')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('maxStudents')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+        </form>
+
+        <a href="/courses" class="btn btn-secondary btn-block mt-3">Back to List</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

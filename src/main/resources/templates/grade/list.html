@@ -1,0 +1,40 @@
+<!-- grade/list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grades</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Grades</h1>
+        <a href="/grades/create" class="btn btn-primary mb-3">Add New Grade</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Grade</th>
+                    <th>Student</th>
+                    <th>Subject</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="grade : ${grades}">
+                    <td th:text="${grade.id}"></td>
+                    <td th:text="${grade.grade}"></td>
+                    <td th:text="${grade.student.name}"></td>
+                    <td th:text="${grade.subject.name}"></td>
+                    <td>
+                        <a th:href="@{'/grades/edit/' + ${grade.id}}" class="btn btn-sm btn-warning">Edit</a>
+                        <a th:href="@{'/grades/delete/' + ${grade.id}}" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/" class="btn btn-secondary">Back to Home</a>
+    </div>
+</body>
+</html>

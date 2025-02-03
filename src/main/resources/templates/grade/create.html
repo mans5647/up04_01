@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать оценку</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Создать оценку</h1>
+        <form th:action="@{/grades}" th:object="${grade}" method="post">
+            <!-- Grade Field -->
+            <div class="form-group">
+                <label for="grade">Оценка:</label>
+                <input 
+                    type="number" 
+                    id="grade" 
+                    name="grade" 
+                    th:field="*{grade}" 
+                    class="form-control" 
+                    required>
+                <div th:if="${#fields.hasErrors('grade')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('grade')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <!-- Student Field -->
+            <div class="form-group">
+                <label for="student">Студент:</label>
+                <select 
+                    id="student" 
+                    name="student.id" 
+                    th:field="*{student}" 
+                    class="form-control" 
+                    required>
+                    <option value="" disabled>Выберите студента</option>
+                    <option th:each="student : ${students}" 
+                            th:value="${student.id}" 
+                            th:text="${student.name}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('student')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('student')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <!-- Subject Field -->
+            <div class="form-group">
+                <label for="subject">Предмет:</label>
+                <select 
+                    id="subject" 
+                    name="subject.id" 
+                    th:field="*{subject}" 
+                    class="form-control" 
+                    required>
+                    <option value="" disabled>Выберите предмет</option>
+                    <option th:each="subject : ${subjects}" 
+                            th:value="${subject.id}" 
+                            th:text="${subject.name}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('subject')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('subject')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <!-- Assignment Field -->
+            <div class="form-group">
+                <label for="assignment">Задание:</label>
+                <select 
+                    id="assignment" 
+                    name="assignment.id" 
+                    th:field="*{assignment}" 
+                    class="form-control" 
+                    required>
+                    <option value="" disabled>Выберите задание</option>
+                    <option th:each="assignment : ${assignments}" 
+                            th:value="${assignment.id}" 
+                            th:text="${assignment.title}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('assignment')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('assignment')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <!-- Exam Field -->
+            <div class="form-group">
+                <label for="exam">Экзамен:</label>
+                <select 
+                    id="exam" 
+                    name="exam.id" 
+                    th:field="*{exam}" 
+                    class="form-control" 
+                    required>
+                    <option value="" disabled>Выберите экзамен</option>
+                    <option th:each="exam : ${exams}" 
+                            th:value="${exam.id}" 
+                            th:text="${exam.title}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('exam')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('exam')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+        </form>
+        <a href="/grades" class="btn btn-secondary btn-block mt-3">Назад к списку</a>
+    </div>
+</body>
+</html>

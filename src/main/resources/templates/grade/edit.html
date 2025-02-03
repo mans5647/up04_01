@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать оценку</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Редактировать оценку</h1>
+        <form th:action="@{'/grades/update/' + ${grade.id}}" th:object="${grade}" method="post" novalidate>
+            <div class="form-group">
+                <label for="grade">Оценка:</label>
+                <input 
+                    type="number" 
+                    id="grade" 
+                    name="grade" 
+                    class="form-control" 
+                    th:classappend="${#fields.hasErrors('grade')} ? 'is-invalid' : ''" 
+                    th:field="*{grade}" 
+                    required>
+                <div th:if="${#fields.hasErrors('grade')}" class="invalid-feedback">
+                    <p th:each="err : ${#fields.errors('grade')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="student">Студент:</label>
+                <select 
+                    id="student" 
+                    name="student.id" 
+                    class="form-control" 
+                    th:classappend="${#fields.hasErrors('student')} ? 'is-invalid' : ''" 
+                    th:field="*{student}" 
+                    required>
+                    <option value="" disabled>Выберите студента</option>
+                    <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.name}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('student')}" class="invalid-feedback">
+                    <p th:each="err : ${#fields.errors('student')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Предмет:</label>
+                <select 
+                    id="subject" 
+                    name="subject.id" 
+                    class="form-control" 
+                    th:classappend="${#fields.hasErrors('subject')} ? 'is-invalid' : ''" 
+                    th:field="*{subject}" 
+                    required>
+                    <option value="" disabled>Выберите предмет</option>
+                    <option th:each="subject : ${subjects}" th:value="${subject.id}" th:text="${subject.name}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('subject')}" class="invalid-feedback">
+                    <p th:each="err : ${#fields.errors('subject')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="assignment">Задание:</label>
+                <select 
+                    id="assignment" 
+                    name="assignment.id" 
+                    class="form-control" 
+                    th:classappend="${#fields.hasErrors('assignment')} ? 'is-invalid' : ''" 
+                    th:field="*{assignment}" 
+                    required>
+                    <option value="" disabled>Выберите задание</option>
+                    <option th:each="assignment : ${assignments}" th:value="${assignment.id}" th:text="${assignment.title}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('assignment')}" class="invalid-feedback">
+                    <p th:each="err : ${#fields.errors('assignment')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exam">Экзамен:</label>
+                <select 
+                    id="exam" 
+                    name="exam.id" 
+                    class="form-control" 
+                    th:classappend="${#fields.hasErrors('exam')} ? 'is-invalid' : ''" 
+                    th:field="*{exam}" 
+                    required>
+                    <option value="" disabled>Выберите экзамен</option>
+                    <option th:each="exam : ${exams}" th:value="${exam.id}" th:text="${exam.title}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('exam')}" class="invalid-feedback">
+                    <p th:each="err : ${#fields.errors('exam')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+        </form>
+    </div>
+</body>
+</html>

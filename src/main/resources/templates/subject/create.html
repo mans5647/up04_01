@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать предмет</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Создать новый предмет</h1>
+
+        <form th:action="@{/subjects}" th:object="${subject}" method="post">
+            <div class="form-group">
+                <label for="name">Название предмета:</label>
+                <input type="text" id="name" name="name" th:field="*{name}" class="form-control" required>
+                <div th:if="${#fields.hasErrors('name')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('name')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="course">Курс:</label>
+                <select id="course" name="course.id" th:field="*{course}" class="form-control" required>
+                    <option value="" disabled selected>Выберите курс</option>
+                    <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('course')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('course')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="instructor">Инструктор:</label>
+                <select id="instructor" name="instructor.id" th:field="*{instructor}" class="form-control" required>
+                    <option value="" disabled selected>Выберите инструктора</option>
+                    <option th:each="instructor : ${instructors}" th:value="${instructor.id}" th:text="${instructor.name}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('instructor')}" class="text-danger">
+                    <p th:each="err : ${#fields.errors('instructor')}" th:text="${err}"></p>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+        </form>
+
+        <a href="/subjects" class="btn btn-secondary btn-block mt-3">Назад к списку</a>
+    </div>
+</body>
+</html>
